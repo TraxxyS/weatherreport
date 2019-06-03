@@ -1,0 +1,51 @@
+<html>
+
+<head>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0/dist/Chart.min.js"></script>
+    <link rel="stylesheet" href="main.css">
+    <script src="app.js"></script>
+</head>
+
+<body>
+    <script>
+        const api_url =
+            'http://api.openweathermap.org/data/2.5/weather?id=2835223&appid=d4f8bb4fe3b4c9d936ed8da76bbcad09';
+        async function Temperatur() {
+            const response = await fetch(api_url);
+            const data = await response.json();
+            console.log(data);
+            var name = console.log(data.name);
+            var Temp = console.log(data.main.temp - 273.15);
+
+            document.getElementById("City").innerHTML = data.name;
+            document.getElementById("temperatur").innerHTML = Math.round(data.main.temp_max - 273.15) + "°";
+            document.getElementById("Wetter").innerHTML = data.weather[0].main;
+            document.getElementById("beschreibung").innerHTML = data.weather[0].description;
+        }
+        Temperatur();
+    </script>
+    <div class="card">
+        <!-- Custom information -->
+        <div class="about">
+            <h3 id="City"></h3>
+            <p class="lead">Temperature in °C</p>
+        </div>
+
+        <!-- Canvas for Chart.js -->
+        <canvas id="canvas"></canvas>
+
+        <!-- Custom Axis -->
+        <div class="axis">
+            <div class="tick">
+                <span class="day-number">3</span>
+                <span class="day-name">Today</span>
+                <span id="temperatur" class="value value--this"></span>
+                <span id="Wetter" class="Wetter Wetter--this">1</span>
+                <span id="beschreibung" class="beschreibung beschreibung--this">1</span>
+            </div>
+        </div>
+    </div>
+
+</body>
+
+</html>
